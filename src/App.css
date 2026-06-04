@@ -4,7 +4,7 @@
 }
 
 .colour-border{
-  border: 3px solid green;
+  border: 3px solid aquamarine;
   padding: 10px;
 }
 
@@ -14,5 +14,6 @@
 
 body{
   padding: 10px;
-  background-color: antiquewhite;
+  background-color: black;
+  color: darkgray;
 }
