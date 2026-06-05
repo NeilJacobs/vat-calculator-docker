@@ -1,2 +1,2 @@
 image: dockerletsgo/vat:<+pipeline.sequenceId>
-replicas: 1
+replicas: 3
