@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lbgcalc
+  labels:
+    app: lbgcalc
+spec:
+  replicas: {{.Values.replicas}}
+  selector:
+    matchLabels:
+      app: lbgcalc
+      
+  template:
+    metadata:
+      labels:
+        app: lbgcalc
+        tier: lbgcalc
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: lbgcalc
+          image: {{.Values.image}}
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "8Mi"
+              cpu: "50m"
+              ephemeral-storage: "2Gi"
+            limits:
+              memory: "16Mi"
+              cpu: "100m"
+              ephemeral-storage: "4Gi"
+          ports:
+          - containerPort: 80
+            name: lbgcalc
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lbgcalc
+  labels:
+    app: lbgcalc
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: lbgcalc
+    tier: lbgcalc
+  type: LoadBalancer
